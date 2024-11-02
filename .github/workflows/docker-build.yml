@@ -2,6 +2,9 @@ name: Build and Push Docker Image
 
 on:
   push:
+    branches:
+      - master
+      - 'releases/**'
   workflow_dispatch:
 
 jobs:
@@ -29,3 +32,11 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ghcr.io/${{ github.repository }}:latest
+
+    - name: Build the Docker Alpine image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./Dockerfile-Alpine
+        push: true
+        tags: ghcr.io/${{ github.repository }}:alpine
