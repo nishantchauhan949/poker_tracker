@@ -29,3 +29,4 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ghcr.io/${{ github.repository }}:latest
+        visibility: public  # Add this line to set the image as public
