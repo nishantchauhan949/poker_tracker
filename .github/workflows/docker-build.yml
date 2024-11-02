@@ -32,6 +32,7 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ghcr.io/${{ github.repository }}:latest
+        platforms: linux/amd64,linux/arm64
 
     - name: Build the Docker Alpine image
       uses: docker/build-push-action@v6
@@ -40,3 +41,4 @@ jobs:
         file: ./Dockerfile-Alpine
         push: true
         tags: ghcr.io/${{ github.repository }}:alpine
+        platforms: linux/amd64,linux/arm64
