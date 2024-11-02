@@ -1,44 +1,51 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetchWinnings();
-});
+// winnings.js
 
-function fetchWinnings() {
-    fetch('/api/matches')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/api/matches')  // Adjust this URL to match your API endpoint
+        .then(response => response.json())
         .then(matches => {
             const tableBody = document.querySelector('#winnings-table tbody');
+            tableBody.innerHTML = ''; // Clear existing content
+
             matches.forEach(match => {
+                const { match_id, players, rounds, winner } = match;
+
+                // Prepare arrays to hold individual bets
+                const preFoldBets = [];
+                const flopBets = [];
+                const turnBets = [];
+                const riverBets = [];
+
+                // Distribute bets to their respective rounds
+                rounds.forEach((round, index) => {
+                    round.forEach(bet => {
+                        // Push bets to the corresponding round array
+                        if (index === 0) {
+                            preFoldBets.push(`${bet.player}: ${bet.bet}`);
+                        } else if (index === 1) {
+                            flopBets.push(`${bet.player}: ${bet.bet}`);
+                        } else if (index === 2) {
+                            turnBets.push(`${bet.player}: ${bet.bet}`);
+                        } else if (index === 3) {
+                            riverBets.push(`${bet.player}: ${bet.bet}`);
+                        }
+                    });
+                });
+
+                // Create a new row with individual bets
                 const row = document.createElement('tr');
-
-                const matchIdCell = document.createElement('td');
-                matchIdCell.textContent = match.match_id;
-
-                const playersCell = document.createElement('td');
-                playersCell.textContent = match.players.join(', ');
-
-                const betsCell = document.createElement('td');
-                betsCell.textContent = match.rounds.map(round =>
-                    round.map(bet => `${bet.player}: ${bet.bet}`).join(', ')
-                ).join(' | ');
-
-                const winnerCell = document.createElement('td');
-                winnerCell.textContent = match.winner ? match.winner.name : 'N/A';
-
-                const winningsCell = document.createElement('td');
-                winningsCell.textContent = match.winner ? match.winner.winnings : 'N/A';
-
-                row.appendChild(matchIdCell);
-                row.appendChild(playersCell);
-                row.appendChild(betsCell);
-                row.appendChild(winnerCell);
-                row.appendChild(winningsCell);
+                row.innerHTML = `
+                    <td>${match_id}</td>
+                    <td>${players.join(', ')}</td>
+                    <td>${preFoldBets.join(', ')}</td>
+                    <td>${flopBets.join(', ')}</td>
+                    <td>${turnBets.join(', ')}</td>
+                    <td>${riverBets.join(', ')}</td>
+                    <td>${winner.name}</td>
+                    <td>${winner.winnings}</td>
+                `;
                 tableBody.appendChild(row);
             });
         })
-        .catch(error => console.error('Error fetching winnings:', error));
-}
+        .catch(error => console.error('Error fetching matches:', error));
+});
