@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">  <!-- Updated path -->
+    <title>Poker Tracker</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Poker Tracker</h1>
+        <!-- Add this section for navigation links -->
+        <nav>
+            <ul>
+                <li><a href="winnings.html">View Winnings</a></li>
+                <!-- Add other navigation links here as needed -->
+            </ul>
+        </nav>
+        <div id="match-form">
+            <input type="number" id="player-count" placeholder="Number of Players" min="2" max="10">
+            <button id="create-match">Create Match</button>
+        </div>
+        <div id="players-input" class="hidden">
+            <h2>Enter Players' Names</h2>
+            <div id="players"></div>
+            <button id="submit-players">Submit Players</button>
+        </div>
+        <div id="bets-input" class="hidden">
+            <h2>Enter Players' Bets</h2>
+            <div id="bets"></div>
+            <button id="submit-bets">Submit Bets</button>
+            <button id="new-round" class="hidden">Next Round</button>
+            <button id="declare-winner" class="hidden">Declare Winner</button>
+        </div>
+        <div id="match-history"></div>
+    </div>
+    <script src="/static/js/script.js"></script>  <!-- Updated path -->
+</body>
+</html>
