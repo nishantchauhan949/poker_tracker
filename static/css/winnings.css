@@ -36,3 +36,17 @@ h1 {
 #winnings-table tr:hover {
     background-color: #ddd;
 }
+
+footer {
+    margin-top: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #007BFF; /* Bootstrap primary color */
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

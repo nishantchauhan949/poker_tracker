@@ -1,3 +1,5 @@
 /matches/
 /.venv/
 .idea/
+*.log
+*.env

@@ -1,0 +1,19 @@
+version: "2.4"  # Ensure you are using version 2.x for these settings
+services:
+  poker_tracker:
+    image: poker_tracker:latest
+    container_name: poker_tracker
+    ports:
+      - "5000:5000"
+    cpuset: '1-2'
+    mem_limit: 1g
+    memswap_limit: 1g
+    restart: always
+    networks:
+      - docker_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  docker_network:
+    external: true
